@@ -1,24 +1,25 @@
 import { Button } from '@/components/ui/button'
+import { HeroVideoDialog } from '@/components/ui/hero-video-dialog'
 import { Textarea } from '@/components/ui/textarea'
-import { Globe2, Send } from 'lucide-react'
+import { ArrowDown, Globe2, Send } from 'lucide-react'
 import React from 'react'
 
-const suggestions=[
+const suggestions = [
     {
-        title:"Create New Trip",
-        icon:<Globe2 className='text-blue-400 h-5 w-5'/>
+        title: "Create New Trip",
+        icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title:"Create New Trip",
-        icon:<Globe2 className='text-blue-400 h-5 w-5'/>
+        title: "Create New Trip",
+        icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title:"Create New Trip",
-        icon:<Globe2 className='text-blue-400 h-5 w-5'/>
+        title: "Create New Trip",
+        icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title:"Create New Trip",
-        icon:<Globe2 className='text-blue-400 h-5 w-5'/>
+        title: "Create New Trip",
+        icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
 ]
 
@@ -47,7 +48,20 @@ const Hero = () => {
                         </div>
                     ))}
                 </div>
+                <div className='flex items-center justify-center flex-col'>
+                {/* video section */}
+                <h2 className='my-7 mt-14 flex gap-2 text-center'>Not Sure Where to Start?<strong>See how it Works</strong><ArrowDown/></h2>
+                <HeroVideoDialog
+                    className="block dark:hidden"
+                    animationStyle="from-center"
+                    videoSrc="https://www.example.com/dummy-video"
+                    thumbnailSrc="	https://mma.prnewswire.com/media/2401528/1_MindtripProduct.jpg?p=facebook"
+                    thumbnailAlt="Dummy Video Thumbnail"
+                />
             </div>
+            </div>
+
+
 
         </div>
     )
