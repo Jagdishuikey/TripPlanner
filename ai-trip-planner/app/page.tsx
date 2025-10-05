@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <Hero/>
-      <PopularCityList compact />
+      <PopularCityList/>
     </div>
   );
 }

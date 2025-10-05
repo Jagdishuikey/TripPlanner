@@ -1,8 +1,12 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { HeroVideoDialog } from '@/components/ui/hero-video-dialog'
 import { Textarea } from '@/components/ui/textarea'
+import { useUser } from '@clerk/nextjs'
 import { ArrowDown, Globe2, Send } from 'lucide-react'
+import { useRouter } from 'next/dist/client/components/navigation'
 import React from 'react'
+
 
 const suggestions = [
     {
@@ -24,6 +28,20 @@ const suggestions = [
 ]
 
 const Hero = () => {
+
+    const {user}=useUser();
+    const router=useRouter();
+
+    const onsend = () => {
+       
+        if(!user){
+            alert("Please sign in to continue")
+            router.push("/sign-in")
+            return;
+        }
+
+    }
+
     return (
         <div className='mt-24 flex justify-center'>
             {/* content */}
@@ -34,7 +52,7 @@ const Hero = () => {
                 <div className='border rounded-2xl p-4 shadow relative'>
                     <Textarea placeholder='Create a trip For Paris To Newyork'
                         className='w-full h-28 bg-transparent border-none focus-visible:ring-0 shadow-none resize-none' />
-                    <Button size={'icon'} className='absolute bottom-6 right-6'>
+                    <Button size={'icon'} className='absolute bottom-6 right-6' onClick={() => onsend()}>
                         <Send className='h-4 w-4' />
                     </Button>
                 </div>
@@ -68,3 +86,4 @@ const Hero = () => {
 }
 
 export default Hero
+

@@ -2,12 +2,14 @@
   "name": "ai-trip-planner",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.33.1",
     "@radix-ui/react-slot": "^1.2.3",
     "@tabler/icons-react": "^3.35.0",
     "class-variance-authority": "^0.7.1",

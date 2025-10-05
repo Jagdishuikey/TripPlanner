@@ -3,20 +3,46 @@
 import React from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 
-export function PopularCityList({ compact }: { compact?: boolean } = {}) {
+// ...existing code...
+// ...existing code...
+export function PopularCityList({ compact = true }: { compact?: boolean } = {}) {
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} compact={compact} />
   ));
 
   return (
-    <div className={`w-full h-full px-4 md:px-6 ${compact ? 'py-8' : 'py-20'}`}>
-      <h2 className={`max-w-7xl mx-auto ${compact ? 'text-lg md:text-2xl' : 'text-xl md:text-5xl'} font-bold text-neutral-800 dark:text-neutral-200 font-sans`}>
-        Get to know your iSad.
-      </h2>
-      <Carousel items={cards} />
-    </div>
+    <section className={`w-full px-4 md:px-6 ${compact ? "py-4" : "py-20"}`}>
+      {/* Make the section full width — carousel and cards will span the viewport (with side padding) */}
+      <div className="w-full">
+        <div
+          className={`rounded-xl p-3 ${compact ? "bg-white/70 dark:bg-neutral-900/50" : "bg-transparent"} shadow-sm`}
+        >
+          <div className="text-center">
+            <h2
+              className={`${
+                compact ? "text-sm md:text-base" : "text-xl md:text-3xl"
+              } font-semibold text-neutral-800 dark:text-neutral-200`}
+            >
+              Popular places to visit
+            </h2>
+            <p className="mt-1 text-xs md:text-sm text-neutral-500 dark:text-neutral-400">
+              Quick ideas for your next getaway
+            </p>
+          </div>
+
+          <div className="mt-3 w-full">
+            {/* full-width carousel container */}
+            <div className="overflow-hidden w-full">
+              <Carousel items={cards} />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
+// ...existing code...
+// ...existing code...
 
 const DummyContent = () => {
   return (
@@ -51,41 +77,78 @@ const DummyContent = () => {
 };
 
 const data = [
-  {
-    category: "Artificial Intelligence",
-    title: "You can do more with AI.",
-    src: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=3556&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Productivity",
-    title: "Enhance your productivity.",
-    src: "https://images.unsplash.com/photo-1531554694128-c4c6665f59c2?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Product",
-    title: "Launching the new Apple Vision Pro.",
-    src: "https://images.unsplash.com/photo-1713869791518-a770879e60dc?q=80&w=2333&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
 
-  {
-    category: "Product",
-    title: "Maps for your iPhone 15 Pro Max.",
-    src: "https://images.unsplash.com/photo-1599202860130-f600f4948364?q=80&w=2515&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "iOS",
-    title: "Photography just got better.",
-    src: "https://images.unsplash.com/photo-1602081957921-9137a5d6eaee?q=80&w=2793&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
-  {
-    category: "Hiring",
-    title: "Hiring for a Staff Software Engineer",
-    src: "https://images.unsplash.com/photo-1511984804822-e16ba72f5848?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    content: <DummyContent />,
-  },
+    {
+
+        category: "Paris, France",
+
+        title: "Explore the City of Lights – Eiffel Tower, Louvre & more",
+
+        src: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2600&auto=format&fit=crop",
+
+        content: <DummyContent />,
+
+    },
+
+    {
+
+        category: "New York, USA",
+
+        title: "Experience NYC – Times Square, Central Park, Broadway",
+
+        src: "https://plus.unsplash.com/premium_photo-1661954654458-c673671d4a08?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+        content: <DummyContent />,
+
+    },
+
+    {
+
+        category: "Tokyo, Japan",
+
+        title: "Discover Tokyo – Shibuya, Cherry Blossoms, Temples",
+
+        src: "https://images.unsplash.com/photo-1522547902298-51566e4fb383?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+        content: <DummyContent />,
+
+    },
+
+    {
+
+        category: "Rome, Italy",
+
+        title: "Walk through History – Colosseum, Vatican, Roman Forum",
+
+        src: "https://plus.unsplash.com/premium_photo-1675975678457-d70708bf77c8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+        content: <DummyContent />,
+
+    },
+
+    {
+
+        category: "Dubai, UAE",
+
+        title: "Luxury and Innovation – Burj Khalifa, Desert Safari",
+
+        src: "https://images.unsplash.com/photo-1526495124232-a04e1849168c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+        content: <DummyContent />,
+
+    },
+
+    {
+
+        category: "India",
+
+        title: "Harbour Views – Opera House, Bondi Beach & Wildlife",
+
+        src: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+
+        content: <DummyContent />,
+
+    },
+
 ];
+
