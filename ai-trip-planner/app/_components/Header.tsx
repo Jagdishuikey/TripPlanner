@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { SignInButton } from '@clerk/nextjs'
+import { SignInButton, useUser } from '@clerk/nextjs'
+
 
 const menuOptions=[{
     name:"Home",
@@ -18,9 +20,12 @@ const menuOptions=[{
 ]
 
 const Header = () => {
+  const { user } = useUser();
+  const router = useRouter();
+  
   return (
     <div className='flex justify-between items-center p-4'>
-        <div>
+        <div onClick={()=>router.push('/')}>
       <Image src={'Logo.svg'} alt="logo" width={150} height={100}/>
       </div>
       {/* menuoptions */}
@@ -31,9 +36,12 @@ const Header = () => {
       })}
       </div>
       {/* get started button */}
-      <SignInButton mode='modal'>
+      {!user?<SignInButton mode='modal'>
       <Button>Get Started</Button>
-      </SignInButton>
+      </SignInButton>:
+      <Link href={'/create-trip'}>
+      <Button>Create New Trip</Button>
+      </Link>}
     </div>
   )
 }
