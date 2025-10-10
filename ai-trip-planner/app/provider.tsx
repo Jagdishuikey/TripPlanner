@@ -4,6 +4,8 @@ import {useMutation} from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useEffect } from "react";
 import { useUser } from '@clerk/nextjs';
+import { UserDetailContext } from '@/context/UserDetailContext';
+import { useState } from 'react';
 
 
 
@@ -15,6 +17,8 @@ function Provider({
 }>) {
 
     const CreateUser=useMutation(api.user.CreateNewUser)
+
+    const [userDetail, setUserDetail] = useState<any>()
 
     const {user}=useUser();
 
@@ -40,16 +44,19 @@ function Provider({
                 });
                 
                 console.log("User creation result:", result);
+                setUserDetail(result)
             } catch (error) {
                 console.error("Error creating user:", error);
             }
         }
     }
     return (
+        <UserDetailContext.Provider value={{userDetail, setUserDetail}}>
         <div>
             <Header/>
             {children}
         </div>
+        </UserDetailContext.Provider>
     )
 }
 
