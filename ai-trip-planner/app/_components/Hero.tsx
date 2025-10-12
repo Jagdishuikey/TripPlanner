@@ -8,21 +8,21 @@ import { useRouter } from 'next/dist/client/components/navigation'
 import React from 'react'
 
 
-const suggestions = [
+export const suggestions = [
     {
         title: "Create New Trip",
         icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title: "Create New Trip",
+        title: "Inspire Where to Go",
         icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title: "Create New Trip",
+        title: "Discover Hidden Gems",
         icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
     {
-        title: "Create New Trip",
+        title: "Adventure Destination",
         icon: <Globe2 className='text-blue-400 h-5 w-5' />
     },
 ]
@@ -39,7 +39,7 @@ const Hero = () => {
             router.push("/sign-in")
             return;
         }
-
+        router.push("/create-new-trip")
     }
 
     return (
