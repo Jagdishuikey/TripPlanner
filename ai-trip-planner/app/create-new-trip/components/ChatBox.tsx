@@ -6,10 +6,13 @@ import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
 import EmptyBoxState from './EmptyBoxState'
+import GroupSizeUi from './GroupSizeUi'
+import BudgetUi from './BudgetUi'
 
 type Message = {
   role: string,
   content: string
+  ui?: string
 }
 
 const ChatBox = () => {
@@ -19,7 +22,7 @@ const ChatBox = () => {
 
   const Onsend = async () => {
     if (!userInput.trim() || isLoading) return;
-    
+
     const newMsg: Message = {
       role: 'user',
       content: userInput
@@ -33,44 +36,57 @@ const ChatBox = () => {
       const result = await axios.post('/api/aimodel', {
         messages: [...messages, newMsg]
       });
-      
+
       if (result.data.resp) {
-        setMessages((prev: Message[]) => [...prev, { 
-          role: 'assistant', 
-          content: result.data.resp 
+        setMessages((prev: Message[]) => [...prev, {
+          role: 'assistant',
+          content: result.data.resp,
+          ui: result?.data.ui
         }]);
       }
       console.log(result.data);
     } catch (error) {
       console.error('Error sending message:', error);
-      setMessages((prev: Message[]) => [...prev, { 
-        role: 'assistant', 
-        content: 'Sorry, I encountered an error. Please try again.' 
+      setMessages((prev: Message[]) => [...prev, {
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.'
       }]);
     } finally {
       setIsLoading(false);
     }
   }
+
+  const RenderGenerativeUi = (ui: string) => {
+    if (ui == 'budget') {
+      return <BudgetUi onSelectedOption={(v:string) => { setUserInput(v); Onsend() }} />
+    } else if (ui == 'groupSize') {
+      return <GroupSizeUi onSelectedOption={(v:string) => { setUserInput(v); Onsend() }} />
+    } return null;
+  }
+
+
+
   return (
     <div className='h-[80vh] flex flex-col'>
       {messages?.length == 0 &&
-      <EmptyBoxState onSelectOption={(v:string)=>{setUserInput(v); Onsend()}} />
+        <EmptyBoxState onSelectOption={(v: string) => { setUserInput(v); Onsend() }} />
       }
       <section className='flex-1 overflow-y-auto p-4'>
         {messages.map((msg: Message, index) => (
-          msg.role === 'user' ? 
-           <div className='flex justify-end mt-2' key={index}>
-          <div className='max-w-lg bg-primary text-white py-2 px-4 rounded-lg '>
-            {msg.content}
-          </div>
-        </div>:
-         <div className='flex justify-start mt-2' key={index}>
-          <div className='max-w-lg bg-gray-100 text-black py-2 px-4 rounded-lg '>
-           {msg.content}
-          </div>
-        </div>
-          ))}
-       
+          msg.role === 'user' ?
+            <div className='flex justify-end mt-2' key={index}>
+              <div className='max-w-lg bg-primary text-white py-2 px-4 rounded-lg '>
+                {msg.content}
+              </div>
+            </div> :
+            <div className='flex justify-start mt-2' key={index}>
+              <div className='max-w-lg bg-gray-100 text-black py-2 px-4 rounded-lg '>
+                {msg.content}
+                {RenderGenerativeUi(msg.ui ?? '')}
+              </div>
+            </div>
+        ))}
+
         {isLoading && (
           <div className='flex justify-start mt-2'>
             <div className='max-w-lg bg-gray-100 text-black py-2 px-4 rounded-lg '>
@@ -95,9 +111,9 @@ const ChatBox = () => {
               }
             }}
           />
-          <Button 
-            size={'icon'} 
-            className='absolute bottom-6 right-6' 
+          <Button
+            size={'icon'}
+            className='absolute bottom-6 right-6'
             onClick={() => Onsend()}
             disabled={isLoading || !userInput.trim()}
           >
