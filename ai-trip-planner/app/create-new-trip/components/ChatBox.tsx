@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Send } from 'lucide-react'
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import EmptyBoxState from './EmptyBoxState'
 import GroupSizeUi from './GroupSizeUi'
 import BudgetUi from './BudgetUi'
+import SelectDays from './SelectDays'
+import FinalUi from './FinalUi'
 
 type Message = {
   role: string,
@@ -19,6 +21,8 @@ const ChatBox = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isFinal,setIsFinal]=useState(false);
+
 
   const Onsend = async () => {
     if (!userInput.trim() || isLoading) return;
@@ -61,8 +65,26 @@ const ChatBox = () => {
       return <BudgetUi onSelectedOption={(v:string) => { setUserInput(v); Onsend() }} />
     } else if (ui == 'groupSize') {
       return <GroupSizeUi onSelectedOption={(v:string) => { setUserInput(v); Onsend() }} />
-    } return null;
+
+    } 
+    else if(ui=='tripDuration'){
+      return <SelectDays onSelectedOption={(v:string) => { setUserInput(v); Onsend() }} />
+      
+    }
+    else if(ui=='Final') {
+      return <FinalUi viewTrip={()=>console.log("View Trip")} />;
+    }
+    else {
+      return null;
+    }
   }
+
+  useEffect(() => {
+    const lastMsg=messages[messages.length-1];
+    if(lastMsg?.ui=='Final'){
+      setIsFinal(true);
+    }
+  }, [messages]);
 
 
 
