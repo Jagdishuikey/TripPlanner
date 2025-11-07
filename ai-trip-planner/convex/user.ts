@@ -29,7 +29,7 @@ export const CreateNewUser = mutation({
             console.log("User created with ID:", result);
             return { ...userData, _id: result };
         } else {
-            console.log("User already exists:", user[0]);
+            console.log("User already exists:", user[0]);//user present or not
             return user[0];
         }
     }
